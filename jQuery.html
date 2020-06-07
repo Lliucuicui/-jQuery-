@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            margin: 0px auto;
+            width: 800px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+      #slider{
+        width: 6400px;
+        display: inline-block;
+        margin: 0px auto;
+        list-style: none;	
+        position:absolute;
+        padding-left: 0px;
+      }
+      #slider li{
+        float: left;
+        width: 800px;
+        height: 500px;
+    }
+    img{
+        width: 800px;
+        height: 500px;
+    }
+    #left{
+        width: 35px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        background-color: black;
+        color: white;
+        opacity: 0.3;
+        position: absolute;
+        top: 250px;
+        left:5px;
+    }
+    #right{
+        width: 35px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        background-color: black;
+        color: white;
+        opacity: 0.3;
+        position: absolute;
+        top: 250px;
+        right:5px;
+    }
+    #nav{
+        list-style: none;
+        display: inline-block;
+	    position: absolute;
+        top:450px;
+        left:15px;
+    } 
+    #nav li{
+        float: left;
+	    width: 20px;
+	    height: 20px;
+	    background-color: #ccc;
+	    margin: 0 10px;
+	    border-radius: 50%;
+	    text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="box">
+		<ul id="slider">
+			<li>
+                <a href="#" class="item"><img src="images/1.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/2.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/3.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/4.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/5.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/6.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/7.JPG"></a>
+            </li>
+            <li>
+                <a href="#" class="item"><img src="images/8.JPG"></a>
+            </li>
+		</ul>
+		<span id="left"><</span>
+		<span id="right">></span>
+		<ul id="nav">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+		</ul>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script>
+        var index=0;
+        var timer=setInterval(next,3000);
+        $("#nav li").eq(0).css("background","white");
+        function move(index){
+            $("#slider").css("left",-800*index);
+            $("#nav li").css("background","#ccc");
+            $("#nav li").eq(index).css("background","white");
+        }
+      
+        function next(){
+            if(index==7){
+                index=0;
+            }
+            else{
+                index++;
+            }
+            move(index);
+        }
+      
+        $("#nav li").on('mouseenter',function(){
+            index=$(this).index();
+            clearInterval(timer);
+            move(index);
+        });
+        $("#nav li").on("mouseleave",function(){
+            timer=setInterval(next,3000);
+        });
+      
+        $("#left").mouseenter(function (){
+            $(this).css("opacity",0.5);
+        }).mouseleave(function (){
+            $(this).css("opacity",0.3);
+        })
+
+        $("#right").mouseenter(function (){
+            $(this).css("opacity",0.5);
+        }).mouseleave(function (){
+            $(this).css("opacity",0.3);
+        })
+
+        $("#left").on("click",function(){
+            clearInterval(timer);
+            if(index==0){
+                index=7;
+            }
+            else{
+                index=index-1;
+            }
+            move(index);
+            timer=setInterval(next,3000);
+        })
+        $("#right").on("click",function(){
+            clearInterval(timer);
+            if(index==7){
+                index=0;
+            }
+            else{
+                index=index+1;
+            }
+            move(index);
+            timer=setInterval(next,3000);
+        })
+      
+        
+      </script>
+</body>
+</html>
